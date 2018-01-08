@@ -1,0 +1,7 @@
+Instructions to use PyCharm with these exercises:
+1. Creating project with existing sources:
+- https://www.jetbrains.com/help/pycharm-edu/adding-existing-virtual-environment.html
+2. Using existing virtualenv with the project:
+- https://www.jetbrains.com/help/pycharm-edu/adding-existing-virtual-environment.html
+
+I.e. If you want to use PyCharm for hacking, create first a project using existing sources, and then configure project to use existing virtualenv you created according to instructions found in file tensor-flow-installation.txt.
