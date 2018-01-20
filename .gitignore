@@ -1,9 +1,12 @@
 # Virtualenv
-tensorflow/venv/
+venv/
 
 # Emacs backups
 *~
 
-# PyCharm config directory
-tensorflow/.idea/
+# Python class files
+*.pyc
+
+# PyCharm
+.idea/
 
