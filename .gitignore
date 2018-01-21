@@ -10,3 +10,5 @@ venv/
 # PyCharm
 .idea/
 
+# Log files
+*.log

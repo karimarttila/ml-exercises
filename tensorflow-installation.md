@@ -42,6 +42,23 @@ Install matplotlib (usefull in plotting data):
 pip3 install --upgrade matplotlib
 ```
 
+```bash
+Install numpy:
+pip3 install --upgrade numpy
+```
+
+```bash
+Install scipy:
+pip3 install --upgrade scipy
+```
+
+```bash
+Install sklearn:
+pip3 install --upgrade sklearn
+```
+
+NOTE: sklearn not necessary for exercises, used it a bit to study numpy and scipy.
+
 Test installation ('=>...' not including to the command):
 
 ```python
@@ -89,6 +106,12 @@ Deactivate virtual environment once you are done:
 
 ```bash
 deactivate
+```
+
+### Install Python tk Package to Linux
+
+```bash
+sudo apt-get install python3-tk
 ```
 
 ### Start Using TensorFlow in a Virtual Environment

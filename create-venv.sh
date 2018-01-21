@@ -15,5 +15,11 @@ pip3 install --upgrade tensorflow
 echo "Install matplotlib..."
 pip3 install --upgrade matplotlib
 
+echo "Install numpy..."
+pip3 install --upgrade numpy
+
+echo "Install scipy..."
+pip3 install --upgrade scipy
+
 echo "Finally leave virtual environment..."
 deactivate
