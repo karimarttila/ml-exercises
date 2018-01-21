@@ -69,16 +69,13 @@ sess = tf.Session()
 print(sess.run(hello))
 ```
 
-=> Should print: b'Hello, TensorFlow!'
-deactivate
-
-... or you can use the test script I provided:
+=> Should print: 
 
 ```bash
-source venv/bin/activate
+b'Hello, TensorFlow!'
 ```
 
-(assuming you are in root directory of this repo):
+... or you can use the test script I provided: (assuming you are in root directory of this repo):
 
 ```python
 python3 exercises/1-tensorflow-installation/src/validate-tensorflow-installation.py
@@ -109,6 +106,8 @@ deactivate
 ```
 
 ### Install Python tk Package to Linux
+
+I realized that I can plot the matplotlib graphics in PyCharm but not in command line. For plotting graphis in command line you have to install python3-tk:
 
 ```bash
 sudo apt-get install python3-tk
