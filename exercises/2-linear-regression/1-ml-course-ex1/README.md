@@ -35,10 +35,10 @@ The following picture shows the convergance of the cost function (J in code, J s
 I added some logging to compare this exercises values to the original ex1 exercise I did earlier using Octave:
 
 ```bash
-2018-01-21 22:44:05,015 - TF - INFO - Population: 3.5, profits: our predicion: 0.490537 (original: 0.451977), delta: 0.04 (8.53%)
-2018-01-21 22:44:05,015 - TF - INFO - Population: 7.0, profits: our predicion: 4.551895 (original: 4.534245), delta: 0.02 (0.39%)
-2018-01-21 22:44:05,016 - TF - INFO - Final trained weights: -3.5708 (original: -3.6303), 1.1604 (original: 1.1664)
-2018-01-21 22:44:05,016 - TF - INFO - Convergance: J[1]: 6.7397 (original: 6.7372), J[1500]: 4.4866 (original: 4.4834)
+2018-01-22 10:43:42,729 - TF - INFO - Comparing to original ex1 predictions using populations 3.5 and 7.0
+2018-01-22 10:43:42,729 - TF - INFO - Population: 3.5, profits: our predicion: 0.490537 (original: 0.451977), delta: 0.04 (8.53%)
+2018-01-22 10:43:42,730 - TF - INFO - Population: 7.0, profits: our predicion: 4.551895 (original: 4.534245), delta: 0.02 (0.39%)
+2018-01-22 10:43:42,730 - TF - INFO - Population: 20.0, profits: our predicion: 19.636938 (original: 19.696956), delta: -0.06 (-0.30%)
 ```
 
 So, there is some delta between the TensorFlow version predictions and original ex1 predictions done using Octave. First I was wondering whether there was some issue with the convergance, but when I compared the convergance values (the first and last cost function values between the TensorFlow version and Octave version) I realized that they are practically the same. Maybe I analyze this later on but let's now continue to the next exercise.

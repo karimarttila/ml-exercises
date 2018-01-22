@@ -133,10 +133,10 @@ class ProfitPopulationLinearRegression:
             self.plotJ_history(J_history, iterations)
 
         # Make a couple of predictions to compare to original ex1.
-        X_test = np.asarray([3.5, 7.0])
+        X_test = np.asarray([3.5, 7.0, 20.0])
         X_test_bias = self.appendBias(X_test)
         y_predicted = sess.run(y_prediction, feed_dict={X: X_test_bias})
-        original_results_raw = np.asanyarray([0.451977, 4.534245])
+        original_results_raw = np.asanyarray([0.451977, 4.534245, 19.696956])
         original_results = original_results_raw.reshape((original_results_raw.shape[0], 1))
         deltas = y_predicted - original_results
         delta_percentages = (100*(y_predicted - original_results)/original_results)
@@ -145,6 +145,8 @@ class ProfitPopulationLinearRegression:
             X_test[0], y_predicted[0][0], original_results[0][0], deltas[0][0], delta_percentages[0][0]))
         self.logger.info("Population: {0}, profits: our predicion: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
             X_test[1], y_predicted[1][0], original_results[1][0], deltas[1][0], delta_percentages[1][0]))
+        self.logger.info("Population: {0}, profits: our predicion: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
+            X_test[2], y_predicted[2][0], original_results[2][0], deltas[2][0], delta_percentages[2][0]))
 
         final_weights = sess.run(W)
         original_weights = [-3.6303, 1.1664] # Original weights (theta) in ex1.m
