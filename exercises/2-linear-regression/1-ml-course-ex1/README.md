@@ -62,7 +62,7 @@ The original ex1 exercise plots the regression line to the diagram. I experiment
 
 ### Reflections Regarding Python Programming
 
-It's been a while since I previously did some serious Python programming. I have been programming production software mostly in Java, and the last year also using Clojure (see more regarding my Clojure experiences [here](https://medium.com/tieto-developers/clojure-impressions-round-two-f989c0945f4b). 
+It's been a while since I previously did some serious Python programming. I have been programming production software mostly in Java, and the last year also using Clojure (see more regarding my Clojure experiences [here](https://medium.com/tieto-developers/clojure-impressions-round-two-f989c0945f4b) ). 
 
 Python as a language is pretty easy and as an interpreted language experimenting ML model and plotting data is rather easy. Python also provides rather good REPL (but nothing compared to Clojure REPL, see examples of Cursive REPL [here](https://cursive-ide.com/userguide/repl.html)).
 
@@ -94,7 +94,7 @@ So, you can create Python code interactively using the Python REPL and once you 
 
 If you like working with the Python REPL I really recommend you to learn [Clojure](https://clojure.org/). Once you master Clojure you realize how powerful Clojure REPL is since it has all the power of Lisp and its S-expressions. If you think that using Python REPL is productive you realize that Clojure REPL is 10X as productive. 
 
-Using a good IDE makes programming easier, of course. If you program Python I strongly recommend [PyCharm](https://www.jetbrains.com/pycharm/). See repository root directory more information about PyCharm.
+Using a good IDE makes programming easier, of course. If you program Python I strongly recommend [PyCharm](https://www.jetbrains.com/pycharm/). See repository root directory for more information about PyCharm.
 
 
 
