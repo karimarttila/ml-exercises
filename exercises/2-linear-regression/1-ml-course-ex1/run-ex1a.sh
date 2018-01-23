@@ -2,9 +2,9 @@
 
 if [ $# -ne 3 ]
 then
-    echo "Usage: ./run-exercise.sh <data-file> <config-file> <plot data: true/false>"
+    echo "Usage: ./run-ex1a.sh <data-file> <config-file> <plot data: true/false>"
     echo "Examples:"
-    echo "./run-exercise.sh data/ex1data1-profit-population.csv ml_course_ex1.ini false"
+    echo "./run-ex1a.sh data/ex1a-profit-population.csv ml_course_ex1a.ini false"
     echo "NOTE: Remember to activate the Python3 virtual environment!"
     exit 1
 fi
@@ -20,4 +20,4 @@ then
     exit 2
 fi
 
-PYTHONPATH=$LOGGER_DIR python3 src/ml_course_ex1.py $DATA_FILE $CONFIG_FILE $PLOT_DATA
+PYTHONPATH=$LOGGER_DIR python3 src/ml_course_ex1a.py $DATA_FILE $CONFIG_FILE $PLOT_DATA

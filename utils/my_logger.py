@@ -55,22 +55,17 @@ class FileConfigLogger:
             logging.basicConfig(level=self.level)
 
     def debug(self, msg):
-        """ Debug. """
         self.logger.debug(msg)
 
     def info(self, msg):
-        """ Info. """
         self.logger.info(msg)
 
-    def warn(self, msg):
-        """ Warn. """
+    def warning(self, msg):
         self.logger.warning(msg)
 
     def error(self, msg):
-        """ Error. """
         self.logger.error(msg)
 
-    def fatal(self, msg):
-        """ Fatal. """
-        self.logger.fatal(msg)
+    def critical(self, msg):
+        self.logger.critical(msg)
 

@@ -33,8 +33,12 @@ easy_install -U pip
 ```
 
 ```bash
-Install tensorflow (once):
+Install tensorflow:
 pip3 install --upgrade tensorflow
+```
+```bash
+echo "Install keras:"
+pip3 install --upgrade keras
 ```
 
 ```bash

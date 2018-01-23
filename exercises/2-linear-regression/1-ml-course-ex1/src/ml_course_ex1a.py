@@ -140,7 +140,8 @@ class ProfitPopulationLinearRegression:
         original_results = original_results_raw.reshape((original_results_raw.shape[0], 1))
         deltas = y_predicted - original_results
         delta_percentages = (100*(y_predicted - original_results)/original_results)
-        self.logger.info("Comparing to original ex1 predictions using populations 3.5 and 7.0")
+        self.logger.info("Comparing to original ex1 predictions using populations {0}, {1} and {2}".format(
+            X_test[0], X_test[1], X_test[2]))
         self.logger.info("Population: {0}, profits: our predicion: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
             X_test[0], y_predicted[0][0], original_results[0][0], deltas[0][0], delta_percentages[0][0]))
         self.logger.info("Population: {0}, profits: our predicion: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
