@@ -50,11 +50,24 @@ class ProfitPopulationLinearRegression:
         self.logger.debug("EXIT readCsvFile")
         return (populations, profits)
 
+    def getPredictedProfits(self, line_data):
+        (X_train_bias, final_weights) = line_data
+        # Calculate new y values based on multiplying the original X set with weights we got from the model.
+        y_mat = np.matmul(X_train_bias, final_weights)
+        # Reshape linear.
+        y_reshaped = y_mat.reshape(1,y_mat.shape[0])
+        # Get first value where the actual array is.
+        y_new = y_reshaped[0].tolist()
+        return y_new
 
-    def plotData(self, data):
+
+    def plotData(self, data, line_data):
         self.logger.debug("ENTER plotData")
         (populations, profits) = data
         mplot.plot(populations, profits, "bx")
+        if (line_data):
+            predicted_profits = self.getPredictedProfits(line_data)
+            mplot.plot(populations, predicted_profits, "rx")
         yint = range(math.ceil(min(profits))-1, math.ceil(max(profits))+1)
         xint = range(math.ceil(min(populations))-1, math.ceil(max(populations))+1)
         mplot.yticks(yint)
@@ -158,10 +171,14 @@ class ProfitPopulationLinearRegression:
         self.logger.info("Convergance: J[1]: {0:.4f} (original: {1:.4f}), J[1500]: {2:.4f} (original: {3:.4f})".format(
                J_history[1], original_J_history[0], J_history[1500], original_J_history[1]))
 
+        # Plot the regression line.
+        if (self.plotting_enabled):
+            self.plotData((populations, profits), (X_train_bias, final_weights))
+
         # Close TF session.
         sess.close()
         self.logger.debug("EXIT runLinearRegression")
-        return
+        return 0  # Everything ok.
 
 
     def run(self, datafile):
@@ -171,10 +188,10 @@ class ProfitPopulationLinearRegression:
         dataCount = len(populations)
         self.logger.debug("Read items: {0}".format(dataCount))
         if (self.plotting_enabled):
-            self.plotData((populations,profits))
-        self.runLinearRegression((populations,profits))
+            self.plotData((populations,profits), None)
+        ret = self.runLinearRegression((populations,profits))
         self.logger.debug("EXIT run")
-        return
+        return ret
 
 
 def showError():
