@@ -60,4 +60,41 @@ The original ex1 exercise plots the regression line to the diagram. I experiment
 ![Regression line of Python exercise](images/regression-line-python.png "Regression line of Python exercise")
 
 
+### Reflections Regarding Python Programming
+
+It's been a while since I previously did some serious Python programming. I have been programming production software mostly in Java, and the last year also using Clojure (see more regarding my Clojure experiences [here](https://medium.com/tieto-developers/clojure-impressions-round-two-f989c0945f4b). 
+
+Python as a language is pretty easy and as an interpreted language experimenting ML model and plotting data is rather easy. Python also provides rather good REPL (but nothing compared to Clojure REPL, see examples of Cursive REPL [here](https://cursive-ide.com/userguide/repl.html)).
+
+If you want to experiment with the code using Python repl you can start it so that you add the utils directory to the python path:
+
+```bash
+PYTHONPATH=../../../../utils python3
+```
+
+Once you are in the Python REPL you can interact with the code, e.g:
+
+```bash
+>>> import src.ml_course_ex1a as ex1a
+>>> model = ex1a.ProfitPopulationLinearRegression("ml_course_ex1a.ini", True)
+>>> (populations,profits) = model.readCsvFile("data/ex1a-profit-population.csv")
+2018-01-23 21:32:06,418 - TF - DEBUG - ENTER readCsvFile
+2018-01-23 21:32:06,419 - TF - DEBUG - EXIT readCsvFile
+>>> len(populations)
+97
+>>> import numpy as np
+>>> populations_array = np.asarray(populations)
+>>> populations_array
+array([ 6.1101,  5.5277,  8.5186,  7.0032,  5.8598,  8.3829,  7.4764,
+        8.5781,  6.4862,  5.0546,  5.7107, 14.164 ,  5.734 ,  8.4084,
+... and so on...
+```
+
+So, you can create Python code interactively using the Python REPL and once you are happy, you copy-paste the code to your source file. Using REPL like this is quite powerful way to create code since you can create the code in small blocks.
+
+If you like working with the Python REPL I really recommend you to learn [Clojure](https://clojure.org/). Once you master Clojure you realize how powerful Clojure REPL is since it has all the power of Lisp and its S-expressions. If you think that using Python REPL is productive you realize that Clojure REPL is 10X as productive. 
+
+Using a good IDE makes programming easier, of course. If you program Python I strongly recommend [PyCharm](https://www.jetbrains.com/pycharm/). See repository root directory more information about PyCharm.
+
+
 
