@@ -50,4 +50,4 @@ The original ex1 exercise plots the regression line to the diagram. I experiment
 ![Regression line of Python exercise](images/regression-line-python.png "Regression line of Python exercise")
 
 
-Instead of the actual regression line you can see how the population values are projected to the regression line. :-)  I'll explore matplotlib library api later to figure out how to create the actual line. 
+
