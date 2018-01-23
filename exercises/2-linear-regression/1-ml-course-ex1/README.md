@@ -1,4 +1,4 @@
-# Instructions to Use PyCharm with My Machine Learning Exercises
+# Linear Regression - Coursera ML Exercise 1 Using TensorFlow
 
 ## Introduction
 
