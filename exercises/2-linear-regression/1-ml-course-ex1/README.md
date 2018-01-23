@@ -7,7 +7,7 @@ This is the ex1a in the [Machine Learning](https://www.coursera.org/learn/machin
 
 ## The Exercise
 
-In the original exercise in the course we implemented a simple linear regression model of one variable to predict profits for a food truck related to the population of the cities. 
+In the original exercise in the course we implemented a simple linear regression model of one variable to predict profits for a food truck related to the population of the cities (the data should be interpreted x1000). 
 
 The program has capability to plot the data using matplotlib.pyplot library. I took a screenshot of this plot which shows the relation between the population of the city and the profits using the data provided.
 
