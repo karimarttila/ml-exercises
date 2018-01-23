@@ -14,6 +14,7 @@ import time
 import logging.config
 import tensorflow as tf
 import matplotlib.pyplot as mplot
+import matplotlib.lines as mlines
 import numpy as np
 import configparser
 import my_logger
@@ -66,8 +67,18 @@ class ProfitPopulationLinearRegression:
         (populations, profits) = data
         mplot.plot(populations, profits, "bx")
         if (line_data):
+            (X_train_bias, final_weights) = line_data
             predicted_profits = self.getPredictedProfits(line_data)
+            x_min = min(populations)
+            x_max = max(populations)
+            x_endpoints = np.asarray([x_min, x_max])
+            x_endpoints_bias = self.appendBias(x_endpoints)
+            [y_min,y_max] = self.getPredictedProfits((x_endpoints_bias, final_weights)) # Real reuse. :-)
+            l = mlines.Line2D([x_min,x_max], [y_min,y_max], color="g")
+            ax = mplot.gca()
+            ax.add_line(l)
             mplot.plot(populations, predicted_profits, "rx")
+
         yint = range(math.ceil(min(profits))-1, math.ceil(max(profits))+1)
         xint = range(math.ceil(min(populations))-1, math.ceil(max(populations))+1)
         mplot.yticks(yint)
