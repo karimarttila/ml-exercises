@@ -4,10 +4,13 @@
 
 This is the ex1a in the [Machine Learning](https://www.coursera.org/learn/machine-learning) course provided in [Coursera](https://www.coursera.org). I did in winter 2016/2017. 
 
+I have divided the actual exercise 1 into smaller parts (a,b...) in the order the parts of the original exercise was described in the PDF instruction.
 
-## The Exercise
+## Exercise 1a
 
-In the original exercise in the course we implemented a simple linear regression model of one variable to predict profits for a food truck related to the population of the cities (the data should be interpreted x1000). 
+### Introduction
+
+In the original exercise we implemented a simple linear regression model of one variable to predict profits for a food truck related to the population of the cities (the data should be interpreted x1000). 
 
 The program has capability to plot the data using matplotlib.pyplot library. I took a screenshot of this plot which shows the relation between the population of the city and the profits using the data provided.
 
@@ -23,8 +26,15 @@ In the data directory you can find the data file used in this exercise. The 0th 
 
 This is linear regression of one variable (X) related to y, i.e. y = f(X). 
 
+### Implementation
 
-## Analysis
+I modularize every exercise to a Python class which makes IMHO the code a bit more readable. At the end of the file is the main entry point to the file. It basically just reads the command line arguments, instantiates the class and calls the run method. 
+
+The run method first plots the original data and then starts the linear regression calculation using TensorFlow library (with some help of NumPy library). The function is rather long, but this is not meant to be production software, just my private exercise. 
+
+The implementation should be rather self-descriptive if you have learned the basics of linear regression and some basics of TensorFlow and NumPy libraries. Once the basic stuff (bias, placeholders, variables...) are done the actual heavy lifting is done using TensorFlow's [GradientDescentOptimizer](https://www.tensorflow.org/api_docs/python/tf/train/GradientDescentOptimizer) function (in the Coursera course we had to implement the algorithm using primitive matrix calculation).
+
+### Analysis
 
 The analysis part of the exercise was pretty interesting since I had done the same exercise previously in the ML course using Octave. 
 
