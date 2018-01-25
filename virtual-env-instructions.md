@@ -8,7 +8,7 @@ Use these instructions to install tensorflow in a virtual environment.
 
 ### One-time Tasks
 
-These instructions need to be applied only once. You can also use the script create-venv.sh to create the Python Virtual environment (or manually use the steps described below).
+These instructions need to be applied only once. You can also use the script [create-venv.sh](create-venv.sh) to create the Python Virtual environment (or manually use the steps described below).
 
 Create the virtual environment called tensorflow (once):
 
@@ -36,8 +36,14 @@ easy_install -U pip
 Install tensorflow:
 pip3 install --upgrade tensorflow
 ```
+
 ```bash
-echo "Install keras:"
+Install tfleanr:
+pip3 install --upgrade tflearn
+```
+
+```bash
+echo "Install keras..."
 pip3 install --upgrade keras
 ```
 
@@ -135,4 +141,4 @@ deactivate
 
 ### Next Steps
 
-Continue configuring PyCharm if you use that Python IDE: see file pycharm-instructions.md.
+Continue configuring PyCharm if you use that Python IDE and you haven't done the configurations yet. See file [pycharm-instructions.md](pycharm-instructions.md).

@@ -36,6 +36,14 @@ This project is hosted in Github in url [ml-exercises](https://github.com/karima
 - data: Various raw and processed material from various open data sources. Processed data will be used as training and test sets. 
 - exercises: The exercises. I have created subdirectories for those ML algorithms I'm experimenting. There in each ML algorithm directory there can be 1-N different exercises. Some of the exercises have just TensorFlow solutions. Some both TensorFlow and Octave solutions (in different subdirectories).
 
+## How to Start Exloring These Exercises
+
+First check these instructions::
+
+- Virtual environment configurations: [virtual-env-instructions.md](virtual-env-instructions.md)
+- PyCharm configurations: [pycharm-instructions.md](pycharm-instructions.md)
+
+
 ## Disclaimer
 
 These exercises have been done just for my own learning purposes. I have tried to make the exercises so that anyone can run the exercises using Octave / Python in their own Linux machines (only bash scripts to run the exercises are provided) but I don't promise they work in your workstation without some tweaking. So, do not send me any email like "exercise X does not run in my computer". :-)

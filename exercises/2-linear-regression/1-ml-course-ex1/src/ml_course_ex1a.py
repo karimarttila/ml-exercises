@@ -1,17 +1,14 @@
 """
-Profit/Population linear regression exercise using TensorFlow."
+Profit / Population one variable linear regression exercise using TensorFlow."
 Usage: python3 ml_course_ex1.py <data-file> <config-file> <plot data: true/false>"
 
 Author: Kari Marttila
 Project: https://github.com/karimarttila/ml-exercises/
 """
 
-import os
 import csv
 import sys
 import math
-import time
-import logging.config
 import tensorflow as tf
 import matplotlib.pyplot as mplot
 import matplotlib.lines as mlines
@@ -22,7 +19,7 @@ import my_logger
 
 class ProfitPopulationLinearRegression:
     """
-    Linear regression class.
+    One variable linear regression class.
     """
     config_file = None
     logger = None
@@ -51,8 +48,8 @@ class ProfitPopulationLinearRegression:
         self.logger.debug("EXIT readCsvFile")
         return (populations, profits)
 
-    def getPredictedProfits(self, line_data):
-        (X_train_bias, final_weights) = line_data
+    def getPredictedProfits(self, xdata_weights):
+        (X_train_bias, final_weights) = xdata_weights
         # Calculate new y values based on multiplying the original X set with weights we got from the model.
         y_mat = np.matmul(X_train_bias, final_weights)
         # Reshape linear.
@@ -62,13 +59,13 @@ class ProfitPopulationLinearRegression:
         return y_new
 
 
-    def plotData(self, data, line_data):
+    def plotData(self, data, xdata_weights):
         self.logger.debug("ENTER plotData")
         (populations, profits) = data
         mplot.plot(populations, profits, "bx")
-        if (line_data):
-            (X_train_bias, final_weights) = line_data
-            predicted_profits = self.getPredictedProfits(line_data)
+        if (xdata_weights):
+            (X_train_bias, final_weights) = xdata_weights
+            predicted_profits = self.getPredictedProfits(xdata_weights)
             x_min = min(populations)
             x_max = max(populations)
             x_endpoints = np.asarray([x_min, x_max])
@@ -99,6 +96,8 @@ class ProfitPopulationLinearRegression:
 
 
     def appendBias(self, vec):
+        # NOTE: I realized later that it is a bit awkward to add the bias like this,
+        # but it's just an exercise. Let's learn more numpy as we do other exercises.
         self.logger.debug("ENTER appendBias")
         # See: https://machinelearningmastery.com/index-slice-reshape-numpy-arrays-machine-learning-python/
         # Reshape the vector vec (m) to (m,1), i.e. [1.34, 2.54] => [[1.34],[2.54]]
@@ -156,7 +155,7 @@ class ProfitPopulationLinearRegression:
         if (self.plotting_enabled):
             self.plotJ_history(J_history, iterations)
 
-        # Make a couple of predictions to compare to original ex1.
+        # Make a couple of predictions to compare to original ex1a.
         X_test = np.asarray([3.5, 7.0, 20.0])
         X_test_bias = self.appendBias(X_test)
         y_predicted = sess.run(y_prediction, feed_dict={X: X_test_bias})
@@ -164,13 +163,13 @@ class ProfitPopulationLinearRegression:
         original_results = original_results_raw.reshape((original_results_raw.shape[0], 1))
         deltas = y_predicted - original_results
         delta_percentages = (100*(y_predicted - original_results)/original_results)
-        self.logger.info("Comparing to original ex1 predictions using populations {0}, {1} and {2}".format(
+        self.logger.info("Comparing to original ex1a predictions using populations {0}, {1} and {2}".format(
             X_test[0], X_test[1], X_test[2]))
-        self.logger.info("Population: {0}, profits: our predicion: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
+        self.logger.info("Population: {0}, profits: our prediction: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
             X_test[0], y_predicted[0][0], original_results[0][0], deltas[0][0], delta_percentages[0][0]))
-        self.logger.info("Population: {0}, profits: our predicion: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
+        self.logger.info("Population: {0}, profits: our prediction: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
             X_test[1], y_predicted[1][0], original_results[1][0], deltas[1][0], delta_percentages[1][0]))
-        self.logger.info("Population: {0}, profits: our predicion: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
+        self.logger.info("Population: {0}, profits: our prediction: {1:.6f} (original: {2:.6f}), delta: {3:.2f} ({4:.2f}%)".format(
             X_test[2], y_predicted[2][0], original_results[2][0], deltas[2][0], delta_percentages[2][0]))
 
         final_weights = sess.run(W)

@@ -4,6 +4,11 @@
 
 [PyCharm](https://www.jetbrains.com/pycharm/) is my favorite Python IDE. I occasionally use also [Emacs](https://www.gnu.org/software/emacs/) as a jack-of-all-trades editor when I want quickly to create a short Python script or fix some issue. But PyCharm is superior for anything else than occasional quick Python coding. PyCharm provides excellent editor and running environment (and debugger). So, I strongly recommend PyCharm for Python coding.
 
+## Prerequisites
+
+You have to create the python virtual environment first, see instructions [virtual-env-instructions.md](virtual-env-instructions.md) .
+
+
 ## Quick PyCharm Instructions
 
 These are quick PyCharm instructions to be used with my ML exercises for Python.

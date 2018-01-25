@@ -12,6 +12,9 @@ easy_install -U pip
 echo "********* Install tensorflow..."
 pip3 install --upgrade tensorflow
 
+echo "********* Install tflearn..."
+pip3 install --upgrade tflearn
+
 echo "********* Install keras..."
 pip3 install --upgrade keras
 
