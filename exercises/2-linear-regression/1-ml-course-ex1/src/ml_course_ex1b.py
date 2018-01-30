@@ -154,6 +154,11 @@ class RealEstateLinearRegression:
         self.logger.info("Convergance: J[1]: {0:.2f} (original: {1:.2f}), J[400]: {2:.2f} (original: {3:.2f})".format(
                J_history[1], original_J_history[0], J_history[400], original_J_history[1]))
 
+        # Close TF session.
+        sess.close()
+        self.logger.debug("EXIT runLinearRegression")
+        return 0  # Everything ok.
+
 
     def run(self, datafile):
         self.logger.debug("ENTER run")
