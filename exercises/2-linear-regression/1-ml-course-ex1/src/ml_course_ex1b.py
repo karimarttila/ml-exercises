@@ -1,6 +1,6 @@
 """
 Real estate multi variable linear regression exercise using TensorFlow."
-Usage: python3 ml_course_ex1.py <data-file> <config-file> <plot data: true/false>"
+Usage: python3 ml_course_ex1b.py <data-file> <config-file> <plot data: true/false>"
 
 Author: Kari Marttila
 Project: https://github.com/karimarttila/ml-exercises/
