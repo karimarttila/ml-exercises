@@ -13,9 +13,12 @@ venv/
 # Log files
 *.log
 
+# tmp directories everywhere
+tmp/
+
+
 # TODO: Remove this when you are done with the model!
 exercises/2-linear-regression/2-helsinki-2016-nitricoxide
 
-# tmp directories
-tmp/
-
+# TODO: Remove this when you are done with the model!
+exercises/3-logistic-regression/
