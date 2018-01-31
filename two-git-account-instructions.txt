@@ -1,0 +1,9 @@
+This note is just for myself for future Github setups since there was some hassle when I configured my environment to use different Github accounts (personal and company) to be used for my personal projects and for company projects.
+
+See ~/.ssh/config => Here we configure different ssh keys for different accounts (personal and company).
+
+See /ml-exercises/.git/config => Here (in [remote "origin"] section) we configure to use the personal Github account ssh key.
+
+See instructions in https://www.keybits.net/post/automatically-use-correct-ssh-key-for-remote-git-repo/
+(also in personal-info directory).
+
