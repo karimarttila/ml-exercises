@@ -69,8 +69,13 @@ class UniversityAdmissionLogisticRegression:
         major_ticks = np.arange(0, 101, 10)
         ax.set_xticks(major_ticks)
         ax.set_yticks(major_ticks)
-        ax.plot(exam1_passed_v, exam2_passed_v, "bx")
-        ax.plot(exam1_not_passed_v, exam2_not_passed_v, "ro", fillstyle='none')
+        ax.plot(exam1_passed_v, exam2_passed_v, "bx", label= 'Admitted')
+        ax.plot(exam1_not_passed_v, exam2_not_passed_v, "ro", fillstyle='none', label= 'Not admitted')
+        handles, labels = ax.get_legend_handles_labels()
+        ax.legend(handles, labels)
+        ax.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, borderaxespad=0.)
+
+
         mplot.show()
         self.logger.debug("EXIT plot_data")
         return
