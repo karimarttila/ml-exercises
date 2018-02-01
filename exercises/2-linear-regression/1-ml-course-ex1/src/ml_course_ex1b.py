@@ -36,8 +36,8 @@ class RealEstateLinearRegression:
         self.logger = my_logger.FileConfigLogger("TF", None, log_level, "LOG_CFG")
 
 
-    def readCsvFile(self, datafile):
-        self.logger.debug("ENTER readCsvFile")
+    def read_csv_file(self, datafile):
+        self.logger.debug("ENTER read_csv_file")
         areas = []
         rooms = []
         prices = []
@@ -47,12 +47,12 @@ class RealEstateLinearRegression:
                 areas.append(float(row[0]))
                 rooms.append(float(row[1]))
                 prices.append(float(row[2]))
-        self.logger.debug("EXIT readCsvFile")
+        self.logger.debug("EXIT read_csv_file")
         return (areas, rooms, prices)
 
 
-    def plotData(self, data):
-        self.logger.debug("ENTER plotData")
+    def plot_data(self, data):
+        self.logger.debug("ENTER plot_data")
         (areas, rooms, prices) = data
         areas_v = np.asarray(areas)
         rooms_v = np.asarray(rooms)
@@ -66,8 +66,8 @@ class RealEstateLinearRegression:
         mplot.show()
         return
 
-    def plotJ_history(self, J_history, iterations):
-        self.logger.debug("ENTER plotJ_history")
+    def plot_j_history(self, J_history, iterations):
+        self.logger.debug("ENTER plot_j_history")
         mplot.plot(range(len(J_history)),J_history)
         mplot.axis([0,iterations,0,np.max(J_history)])
         mplot.show()
@@ -88,14 +88,14 @@ class RealEstateLinearRegression:
         return X_train
 
 
-    def runLinearRegression(self, data):
+    def run_linear_regression(self, data):
         """
         Linear regression ex1 exercise.
         NOTE: In ex1a we didn't normalize the data. In this exercise ex1b
         we are normalizing data as it was normalized in the original
         ex1_multi exercise.
         """
-        self.logger.debug("ENTER runLinearRegression")
+        self.logger.debug("ENTER run_linear_regression")
         (area, rooms, price) = data
         iterations = int(self.config['DEFAULT']['iterations'])
         alpha = float(self.config['DEFAULT']['alpha'])  # Learning rate.
@@ -128,7 +128,7 @@ class RealEstateLinearRegression:
             sess.run(step,feed_dict={X:X_train_normalized_bias, y:y_train})
             J_history = np.append(J_history,sess.run(J,feed_dict={X:X_train_normalized_bias,y:y_train}))
         if (self.plotting_enabled):
-            self.plotJ_history(J_history, iterations)
+            self.plot_j_history(J_history, iterations)
 
         # Make a test of 1650 area apartment with 3 rooms (first element is bias).
         X_test = np.asarray([[1650.0, 3.0]])
@@ -156,20 +156,20 @@ class RealEstateLinearRegression:
 
         # Close TF session.
         sess.close()
-        self.logger.debug("EXIT runLinearRegression")
+        self.logger.debug("EXIT run_linear_regression")
         return 0  # Everything ok.
 
 
     def run(self, datafile):
         self.logger.debug("ENTER run")
         self.logger.debug("data file: {0}".format(datafile))
-        data = self.readCsvFile(datafile)
+        data = self.read_csv_file(datafile)
         (areas, rooms, prices) = data
         dataCount = len(areas)
         self.logger.debug("Read items: {0}".format(dataCount))
         if (self.plotting_enabled):
-            self.plotData(data)
-        ret = self.runLinearRegression(data)
+            self.plot_data(data)
+        ret = self.run_linear_regression(data)
         self.logger.debug("EXIT run")
         return ret
 
@@ -179,7 +179,7 @@ def showError():
     return
 
 
-def getArguments(argv):
+def get_arguments(argv):
     if len(argv) != 4:
         showError()
         return -1
@@ -190,7 +190,7 @@ def getArguments(argv):
 
 
 if __name__ =='__main__':
-    (data_file, config_file, plotting_enabled) = getArguments(sys.argv)
+    (data_file, config_file, plotting_enabled) = get_arguments(sys.argv)
     model = RealEstateLinearRegression(config_file, plotting_enabled)
     return_code = model.run(data_file)
     sys.exit(return_code)

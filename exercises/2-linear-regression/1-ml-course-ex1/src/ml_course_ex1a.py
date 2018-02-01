@@ -36,8 +36,8 @@ class ProfitPopulationLinearRegression:
         self.logger = my_logger.FileConfigLogger("TF", None, log_level, "LOG_CFG")
 
 
-    def readCsvFile(self, datafile):
-        self.logger.debug("ENTER readCsvFile")
+    def read_csv_file(self, datafile):
+        self.logger.debug("ENTER read_csv_file")
         populations = []
         profits = []
         with open(datafile, newline='') as csvfile:
@@ -45,10 +45,10 @@ class ProfitPopulationLinearRegression:
             for row in csvreader:
                 populations.append(float(row[0]))
                 profits.append(float(row[1]))
-        self.logger.debug("EXIT readCsvFile")
+        self.logger.debug("EXIT read_csv_file")
         return (populations, profits)
 
-    def getPredictedProfits(self, xdata_weights):
+    def get_predicted_profits(self, xdata_weights):
         (X_train_bias, final_weights) = xdata_weights
         # Calculate new y values based on multiplying the original X set with weights we got from the model.
         y_mat = np.matmul(X_train_bias, final_weights)
@@ -59,18 +59,18 @@ class ProfitPopulationLinearRegression:
         return y_new
 
 
-    def plotData(self, data, xdata_weights):
-        self.logger.debug("ENTER plotData")
+    def plot_data(self, data, xdata_weights):
+        self.logger.debug("ENTER plot_data")
         (populations, profits) = data
         mplot.plot(populations, profits, "bx")
         if (xdata_weights):
             (X_train_bias, final_weights) = xdata_weights
-            predicted_profits = self.getPredictedProfits(xdata_weights)
+            predicted_profits = self.get_predicted_profits(xdata_weights)
             x_min = min(populations)
             x_max = max(populations)
             x_endpoints = np.asarray([x_min, x_max])
-            x_endpoints_bias = self.appendBias(x_endpoints)
-            [y_min,y_max] = self.getPredictedProfits((x_endpoints_bias, final_weights)) # Real reuse. :-)
+            x_endpoints_bias = self.append_bias(x_endpoints)
+            [y_min,y_max] = self.get_predicted_profits((x_endpoints_bias, final_weights)) # Real reuse. :-)
             l = mlines.Line2D([x_min,x_max], [y_min,y_max], color="g")
             ax = mplot.gca()
             ax.add_line(l)
@@ -83,22 +83,22 @@ class ProfitPopulationLinearRegression:
         mplot.xlabel("Population")
         mplot.ylabel("Profit")
         mplot.show()
-        self.logger.debug("EXIT plotData")
+        self.logger.debug("EXIT plot_data")
         return
 
-    def plotJ_history(self, J_history, iterations):
-        self.logger.debug("ENTER plotJ_history")
+    def plot_j_history(self, J_history, iterations):
+        self.logger.debug("ENTER plot_j_history")
         mplot.plot(range(len(J_history)),J_history)
         mplot.axis([0,iterations,0,np.max(J_history)])
         mplot.show()
-        self.logger.debug("EXIT plotJ_history")
+        self.logger.debug("EXIT plot_j_history")
         return
 
 
-    def appendBias(self, vec):
+    def append_bias(self, vec):
         # NOTE: I realized later that it is a bit awkward to add the bias like this,
         # but it's just an exercise. Let's learn more numpy as we do other exercises.
-        self.logger.debug("ENTER appendBias")
+        self.logger.debug("ENTER append_bias")
         # See: https://machinelearningmastery.com/index-slice-reshape-numpy-arrays-machine-learning-python/
         # Reshape the vector vec (m) to (m,1), i.e. [1.34, 2.54] => [[1.34],[2.54]]
         matrix = vec.reshape((vec.shape[0], 1)) # New matrix
@@ -107,17 +107,17 @@ class ProfitPopulationLinearRegression:
         n = matrix.shape[1] # Number of features.
         # Add bias (1) => (m,2), i.e. => [[1.0, 1.34],[1,0, 2.54]]
         withBias = np.reshape(np.c_[np.ones(m),matrix],[m,n + 1])
-        self.logger.debug("EXIT appendBias")
+        self.logger.debug("EXIT append_bias")
         return withBias
 
-    def runLinearRegression(self, data):
+    def run_linear_regression(self, data):
         """
         Linear regression ex1 exercise.
         NOTE: We are NOT normalizing data since it was not normalized
         in the original ex1 either (you should normalize data when
         using linear regression).
         """
-        self.logger.debug("ENTER runLinearRegression")
+        self.logger.debug("ENTER run_linear_regression")
         (populations, profits) = data
         iterations = int(self.config['DEFAULT']['iterations'])
         alpha = float(self.config['DEFAULT']['alpha'])  # Learning rate.
@@ -127,7 +127,7 @@ class ProfitPopulationLinearRegression:
         y_train = np.asarray(profits)     # Labels, i.e. profits
 
         # Add bias to X.
-        X_train_bias = self.appendBias(X_train)
+        X_train_bias = self.append_bias(X_train)
         # Reshape y to matrix.
         y_train_m = y_train.reshape((y_train.shape[0], 1)) # Convert to (m,1)
 
@@ -153,11 +153,11 @@ class ProfitPopulationLinearRegression:
             sess.run(step,feed_dict={X:X_train_bias, y:y_train_m})
             J_history = np.append(J_history,sess.run(J,feed_dict={X:X_train_bias,y:y_train_m}))
         if (self.plotting_enabled):
-            self.plotJ_history(J_history, iterations)
+            self.plot_j_history(J_history, iterations)
 
         # Make a couple of predictions to compare to original ex1a.
         X_test = np.asarray([3.5, 7.0, 20.0])
-        X_test_bias = self.appendBias(X_test)
+        X_test_bias = self.append_bias(X_test)
         y_predicted = sess.run(y_prediction, feed_dict={X: X_test_bias})
         original_results_raw = np.asanyarray([0.451977, 4.534245, 19.696956])
         original_results = original_results_raw.reshape((original_results_raw.shape[0], 1))
@@ -183,23 +183,23 @@ class ProfitPopulationLinearRegression:
 
         # Plot the regression line.
         if (self.plotting_enabled):
-            self.plotData((populations, profits), (X_train_bias, final_weights))
+            self.plot_data((populations, profits), (X_train_bias, final_weights))
 
         # Close TF session.
         sess.close()
-        self.logger.debug("EXIT runLinearRegression")
+        self.logger.debug("EXIT run_linear_regression")
         return 0  # Everything ok.
 
 
     def run(self, datafile):
         self.logger.debug("ENTER run")
         self.logger.debug("data file: {0}".format(datafile))
-        (populations, profits) = self.readCsvFile(datafile)
+        (populations, profits) = self.read_csv_file(datafile)
         dataCount = len(populations)
         self.logger.debug("Read items: {0}".format(dataCount))
         if (self.plotting_enabled):
-            self.plotData((populations,profits), None)
-        ret = self.runLinearRegression((populations,profits))
+            self.plot_data((populations,profits), None)
+        ret = self.run_linear_regression((populations,profits))
         self.logger.debug("EXIT run")
         return ret
 
