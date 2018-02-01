@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is the ex1 in the [Machine Learning](https://www.coursera.org/learn/machine-learning) course provided in [Coursera](https://www.coursera.org). I did in winter 2016/2017. 
+This is the ex1a in the [Machine Learning](https://www.coursera.org/learn/machine-learning) course provided in [Coursera](https://www.coursera.org). I did in winter 2016/2017. 
 
 I have divided the actual exercise 1 into smaller parts (a,b...) in the order the parts of the original exercise was described in the PDF instruction.
 
@@ -14,7 +14,7 @@ In the original exercise we implemented a simple linear regression model of one 
 
 The program has capability to plot the data using matplotlib.pyplot library. I took a screenshot of this plot which shows the relation between the population of the city and the profits using the data provided.
 
-![ex1 plot](images/ex1a-population-profit-plot-python.png "ex1 plot")
+![Octave plot of ex1](images/ex1a-population-profit-plot-python.png "Octave plot of ex1")
 
 You can create the graphics running the program as:
 
@@ -79,9 +79,9 @@ Once you are in the Python REPL you can interact with the code, e.g:
 ```bash
 >>> import src.ml_course_ex1a as ex1a
 >>> model = ex1a.ProfitPopulationLinearRegression("ml_course_ex1a.ini", True)
->>> (populations,profits) = model.read_csv_file("data/ex1a-profit-population.csv")
-2018-01-23 21:32:06,418 - TF - DEBUG - ENTER read_csv_file
-2018-01-23 21:32:06,419 - TF - DEBUG - EXIT read_csv_file
+>>> (populations,profits) = model.readCsvFile("data/ex1a-profit-population.csv")
+2018-01-23 21:32:06,418 - TF - DEBUG - ENTER readCsvFile
+2018-01-23 21:32:06,419 - TF - DEBUG - EXIT readCsvFile
 >>> len(populations)
 97
 >>> import numpy as np
