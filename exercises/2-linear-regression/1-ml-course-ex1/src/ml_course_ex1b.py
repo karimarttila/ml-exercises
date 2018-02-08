@@ -76,7 +76,7 @@ class RealEstateLinearRegression:
 
 
     def create_X_train(self, data):
-        """ Create X_train with three columns: [1 (bias), area, rooms]."""
+        """ Create X_train with three columns: [area, rooms]."""
         self.logger.debug("ENTER create_X_train")
         (area, rooms, price) = data
         area_vec = np.asarray(area)
@@ -114,9 +114,10 @@ class RealEstateLinearRegression:
         y = tf.placeholder(tf.float32, [None, 1])
         W = tf.Variable(tf.ones([n,1]), name="weights")
         init = tf.global_variables_initializer()
-        y_prediction = tf.matmul(X, W) # As matrix multiplication in ex1.
-        # Cost
-        J = (1 / (2 * m)) * tf.reduce_sum(tf.pow(y_prediction - y, 2))
+        # As matrix multiplication in ex1b.
+        y_prediction = tf.matmul(X, W)
+        # Cost function.
+        J = (1 / (2 * m)) * tf.reduce_sum(tf.pow(tf.subtract(y_prediction, y), 2))
         step = tf.train.GradientDescentOptimizer(alpha).minimize(J)
         sess = tf.Session()
         sess.run(init)

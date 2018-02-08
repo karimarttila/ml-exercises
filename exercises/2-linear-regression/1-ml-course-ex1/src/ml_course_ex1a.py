@@ -141,7 +141,7 @@ class ProfitPopulationLinearRegression:
         init = tf.global_variables_initializer()
         y_prediction = tf.matmul(X, W) # As matrix multiplication in ex1.
         # Cost
-        J = (1 / (2 * m)) * tf.reduce_sum(tf.pow(y_prediction - y, 2))
+        J = (1 / (2 * m)) * tf.reduce_sum(tf.pow(tf.subtract(y_prediction, y), 2))
         step = tf.train.GradientDescentOptimizer(alpha).minimize(J)
         sess = tf.Session()
         sess.run(init)

@@ -22,4 +22,22 @@ You can create the graphics running the program as:
 ./run-ex2a.sh data/ex2a-university-exam-results.csv ml_course_ex2a.ini true
 ```
 
+So, as one can see you had to make pretty well in both exams to get admitted to the university. If you got excellent scores in one of the exam but did poorly in the other one your chances for getting admitted is not good.
+
+
+### Implementation
+
+I did the exercise pretty much the same way as the original exercise, except I implemented the logistic regression cost function twice: the first implementation is exactly the same plain cost formula as in the original exercise, the second implementation uses TensorFlow [sigmoid_cross_entropy_with_logits](https://www.tensorflow.org/api_docs/python/tf/nn/sigmoid_cross_entropy_with_logits). The reason for this was that I wanted to compare the two ways to implement logistic regression. 
+
+
+### Analysis
+
+#### Plain Cost Function
+
+The plain cost function gave the same results as in the original exercise:
+
+```bash
+2018-02-08 18:59:22,269 - TF - DEBUG - Comparing cost with the original cost of the Coursera exercise:
+2018-02-08 18:59:22,270 - TF - DEBUG - J_value: 0.693147, original cost: 0.693150, delta: -0.000003 (-0.0004%)
+```
 

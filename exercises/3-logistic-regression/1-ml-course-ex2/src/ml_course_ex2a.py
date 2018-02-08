@@ -74,18 +74,82 @@ class UniversityAdmissionLogisticRegression:
         handles, labels = ax.get_legend_handles_labels()
         ax.legend(handles, labels)
         ax.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, borderaxespad=0.)
-
-
         mplot.show()
         self.logger.debug("EXIT plot_data")
         return
 
+    def plot_j_history(self, J_history, iterations):
+        self.logger.debug("ENTER plot_j_history")
+        mplot.plot(range(len(J_history)),J_history)
+        mplot.axis([0,iterations,0,np.max(J_history)])
+        mplot.show()
+        self.logger.debug("EXIT plotJ_history")
+        return
 
-    def run_logistic_regression(self, data):
+
+    def create_X_train(self, data):
+        """ Create X_train with three columns: [exam1, exam2]."""
+        self.logger.debug("ENTER create_X_train")
+        (exam1, exam2, admittance) = data
+        exam1_vec = np.asarray(exam1)
+        exam1_mat = exam1_vec.reshape((exam1_vec.shape[0], 1))
+        exam2_vec = np.asarray(exam2)
+        exam2_mat = exam2_vec.reshape((exam2_vec.shape[0], 1))
+        X_train = np.c_[exam1_mat, exam2_mat]
+        self.logger.debug("EXIT create_X_train")
+        return X_train
+
+
+    def get_variables(self, data):
+        self.logger.debug("ENTER get_variables")
+        (exam1, exam2, admittance) = data
+        X_train = self.create_X_train(data)
+        X_train_bias = np.c_[np.ones(X_train.shape[0]),X_train]
+        y_train_raw = np.asanyarray(admittance)
+        y_train = y_train_raw.reshape((y_train_raw.shape[0], 1)) # Convert to (m,1)
+        m = X_train_bias.shape[0]  # m samples
+        n = X_train_bias.shape[1]  # n features (3: bias + exam1 + exam2)
+        X = tf.placeholder(tf.float32, [None, n])
+        y = tf.placeholder(tf.float32, [None, 1])
+        W = tf.Variable(tf.zeros([n,1]), name="weights")
+        return (X_train_bias, y_train, X, y, W, n, m)
+
+
+    def run_logistic_regression_plain_cost(self, data):
         """
         Logistic regression ex2 exercise.
+        NOTE: In the original ML Coursera course the data was NOT normalized,
+        so we don't normalize it in this exercise either.
+        Using plain cost formula as we did in the original exercise using Octave.
         """
-        self.logger.debug("ENTER run_logistic_regression")
+        self.logger.debug("ENTER run_logistic_regression_plain_cost")
+
+        iterations = int(self.config['DEFAULT']['iterations'])
+        alpha = float(self.config['DEFAULT']['alpha'])  # Learning rate.
+        self.logger.debug("Iterations: {0}".format(iterations))
+        self.logger.debug("Alpha: {0}".format(alpha))
+
+        (X_train_bias, y_train, X, y, W, n, m) = self.get_variables(data)
+        # Using sigmoid as in the original exercise, but here using TF library function.
+        h = tf.nn.sigmoid(tf.matmul(X,W)) # As in the original exercise: h = sigmoid(X * theta);
+        # Cost function with plain formula as we did in the original exercise.
+        # Original formula: J = (1 / m) * ( (((-y)') * (log(h))) - (((1 - y)') * (log(1-h))));
+        J_plain_cost = tf.reduce_sum((1/m) *
+                                     (tf.subtract(
+                                        tf.multiply(-y, tf.log(h)),
+                                         tf.multiply(1 - y, tf.log(1 - h)))) )
+        step = tf.train.GradientDescentOptimizer(alpha).minimize(J_plain_cost)
+        init = tf.global_variables_initializer()
+        # Using Python 'with' statement (context manager) this time - no need to close session explicitely later.
+        with tf.Session() as session:
+            session.run(init)
+            J_value = session.run(J_plain_cost,feed_dict={X:X_train_bias,y:y_train})
+            self.logger.debug("Comparing cost with the original cost of the Coursera exercise:")
+            original_cost =  0.69315
+            delta = J_value - original_cost
+            delta_percentage = (100*(J_value - original_cost)/original_cost)
+            self.logger.debug("J_value: {0:.6f}, original cost: {1:.6f}, delta: {2:.6f} ({3:.4f}%)".format(
+                J_value, original_cost, delta, delta_percentage))
 
         self.logger.debug("EXIT run_logistic_regression")
         return 0  # Everything ok.
@@ -101,7 +165,7 @@ class UniversityAdmissionLogisticRegression:
         self.logger.debug("Read items: {0}".format(dataCount))
         if (self.plotting_enabled):
             self.plot_data(data)
-        ret = self.run_logistic_regression(data)
+        ret = self.run_logistic_regression_plain_cost(data)
         self.logger.debug("EXIT run")
         return ret
 
