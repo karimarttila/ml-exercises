@@ -20,4 +20,10 @@ then
     exit 2
 fi
 
+if [ ! -f $CONFIG_FILE ]
+then
+    echo "File $CONFIG_FILE does not exists, exiting..."
+    exit 3
+fi
+
 PYTHONPATH=$LOGGER_DIR python3 src/ml_course_ex2a.py $DATA_FILE $CONFIG_FILE $PLOT_DATA

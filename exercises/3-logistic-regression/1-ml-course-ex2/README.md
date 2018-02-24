@@ -27,17 +27,30 @@ So, as one can see you had to make pretty well in both exams to get admitted to 
 
 ### Implementation
 
-I did the exercise pretty much the same way as the original exercise, except I implemented the logistic regression cost function twice: the first implementation is exactly the same plain cost formula as in the original exercise, the second implementation uses TensorFlow [sigmoid_cross_entropy_with_logits](https://www.tensorflow.org/api_docs/python/tf/nn/sigmoid_cross_entropy_with_logits). The reason for this was that I wanted to compare the two ways to implement logistic regression. 
+I did the exercise pretty much the same way as the original exercise, except I implemented the logistic regression initial cost function twice: the first implementation is exactly the same plain cost formula as in the original Octave exercise, the second implementation uses TensorFlow [sigmoid_cross_entropy_with_logits](https://www.tensorflow.org/api_docs/python/tf/nn/sigmoid_cross_entropy_with_logits) library function. The reason for this was that I wanted to compare the two ways to implement logistic regression using TensorFlow. 
 
 
 ### Analysis
 
 #### Plain Cost Function
 
-The plain cost function gave the same results as in the original exercise:
+Both methods gave exactly the same results and the results were identical related to the origincal Octave exercise:
 
 ```bash
-2018-02-08 18:59:22,269 - TF - DEBUG - Comparing cost with the original cost of the Coursera exercise:
-2018-02-08 18:59:22,270 - TF - DEBUG - J_value: 0.693147, original cost: 0.693150, delta: -0.000003 (-0.0004%)
+2018-02-24 19:27:42,998 - TF - DEBUG - ENTER run_logistic_regression_plain_initial_cost
+...
+2018-02-24 19:27:43,073 - TF - DEBUG - Comparing cost with the original cost of the Coursera exercise:
+2018-02-24 19:27:43,073 - TF - DEBUG - J_value: 0.693147, original cost: 0.693147, delta: 0.000000 (0.0000%)
+2018-02-24 19:27:43,074 - TF - DEBUG - EXIT run_logistic_regression_plain_initial_cost
+2018-02-24 19:27:43,074 - TF - DEBUG - ENTER run_logistic_regression_sigmoid_cross_entropy_initial_cost
+...
+2018-02-24 19:27:43,121 - TF - DEBUG - Comparing cost with the original cost of the Coursera exercise:
+2018-02-24 19:27:43,121 - TF - DEBUG - J_value: 0.693147, original cost: 0.693147, delta: 0.000000 (0.0001%)
+2018-02-24 19:27:43,121 - TF - DEBUG - EXIT run_logistic_regression_sigmoid_cross_entropy_initial_cost
+
 ```
+The initial costs are the same, so we are happy.
+
+Let's next analyze the training part of the exercise.
+
 

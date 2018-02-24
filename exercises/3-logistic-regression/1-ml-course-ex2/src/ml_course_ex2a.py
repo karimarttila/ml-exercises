@@ -115,20 +115,15 @@ class UniversityAdmissionLogisticRegression:
         return (X_train_bias, y_train, X, y, W, n, m)
 
 
-    def run_logistic_regression_plain_cost(self, data):
+    def run_logistic_regression_plain_initial_cost(self, data, ml_config):
         """
         Logistic regression ex2 exercise.
         NOTE: In the original ML Coursera course the data was NOT normalized,
         so we don't normalize it in this exercise either.
         Using plain cost formula as we did in the original exercise using Octave.
         """
-        self.logger.debug("ENTER run_logistic_regression_plain_cost")
-
-        iterations = int(self.config['DEFAULT']['iterations'])
-        alpha = float(self.config['DEFAULT']['alpha'])  # Learning rate.
-        self.logger.debug("Iterations: {0}".format(iterations))
-        self.logger.debug("Alpha: {0}".format(alpha))
-
+        self.logger.debug("ENTER run_logistic_regression_plain_initial_cost")
+        (iterations, alpha) = ml_config
         (X_train_bias, y_train, X, y, W, n, m) = self.get_variables(data)
         # Using sigmoid as in the original exercise, but here using TF library function.
         h = tf.nn.sigmoid(tf.matmul(X,W)) # As in the original exercise: h = sigmoid(X * theta);
@@ -145,27 +140,69 @@ class UniversityAdmissionLogisticRegression:
             session.run(init)
             J_value = session.run(J_plain_cost,feed_dict={X:X_train_bias,y:y_train})
             self.logger.debug("Comparing cost with the original cost of the Coursera exercise:")
-            original_cost =  0.69315
+            original_cost =  0.693147
             delta = J_value - original_cost
             delta_percentage = (100*(J_value - original_cost)/original_cost)
             self.logger.debug("J_value: {0:.6f}, original cost: {1:.6f}, delta: {2:.6f} ({3:.4f}%)".format(
                 J_value, original_cost, delta, delta_percentage))
 
-        self.logger.debug("EXIT run_logistic_regression")
+        self.logger.debug("EXIT run_logistic_regression_plain_initial_cost")
         return 0  # Everything ok.
+
+    def run_logistic_regression_sigmoid_cross_entropy_initial_cost(self, data, ml_config):
+        """
+        Logistic regression ex2 exercise.
+        NOTE: In the original ML Coursera course the data was NOT normalized,
+        so we don't normalize it in this exercise either.
+        Using sigmoid with cross entropy to compare to plain cost function method.
+        """
+        self.logger.debug("ENTER run_logistic_regression_sigmoid_cross_entropy_initial_cost")
+        (iterations, alpha) = ml_config
+        (X_train_bias, y_train, X, y, W, n, m) = self.get_variables(data)
+        # Note: just multiplying the matrices since sigmoid applied in the cost function.
+        h = tf.matmul(X,W)
+        J_cross_cost = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=h, labels=y))
+        step = tf.train.GradientDescentOptimizer(alpha).minimize(J_cross_cost)
+        init = tf.global_variables_initializer()
+        # Using Python 'with' statement (context manager) this time - no need to close session explicitely later.
+        with tf.Session() as session:
+            session.run(init)
+            J_value = session.run(J_cross_cost,feed_dict={X:X_train_bias,y:y_train})
+            self.logger.debug("Comparing cost with the original cost of the Coursera exercise:")
+            original_cost =  0.693147
+            delta = J_value - original_cost
+            delta_percentage = (100*(J_value - original_cost)/original_cost)
+            self.logger.debug("J_value: {0:.6f}, original cost: {1:.6f}, delta: {2:.6f} ({3:.4f}%)".format(
+                J_value, original_cost, delta, delta_percentage))
+
+        self.logger.debug("EXIT run_logistic_regression_sigmoid_cross_entropy_initial_cost")
+        return 0  # Everything ok.
+
+
+
+    def initialize(self, datafile):
+        self.logger.debug("ENTER initialize")
+        iterations = int(self.config['DEFAULT']['iterations'])
+        alpha = float(self.config['DEFAULT']['alpha'])  # Learning rate.
+        self.logger.debug("Iterations: {0}".format(iterations))
+        self.logger.debug("Alpha: {0}".format(alpha))
+        data = self.read_csv_file(datafile)
+        (exam1, exam2, admittance) = data
+        dataCount = len(exam1)
+        self.logger.debug("Read items: {0}".format(dataCount))
+        ml_config = (iterations, alpha)
+        return (data, ml_config)
 
 
     def run(self, datafile):
         self.logger.debug("ENTER run")
         ret = 0
         self.logger.debug("data file: {0}".format(datafile))
-        data = self.read_csv_file(datafile)
-        (exam1, exam2, admittance) = data
-        dataCount = len(exam1)
-        self.logger.debug("Read items: {0}".format(dataCount))
+        (data, ml_config) = self.initialize(datafile)
         if (self.plotting_enabled):
             self.plot_data(data)
-        ret = self.run_logistic_regression_plain_cost(data)
+        ret = self.run_logistic_regression_plain_initial_cost(data, ml_config)
+        ret = self.run_logistic_regression_sigmoid_cross_entropy_initial_cost(data, ml_config)
         self.logger.debug("EXIT run")
         return ret
 
