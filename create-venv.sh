@@ -30,5 +30,8 @@ pip3 install --upgrade scipy
 echo "********* Install sklearn..."
 pip3 install --upgrade sklearn
 
+echo "********* Install pandas..."
+pip3 install --upgrade pandas
+
 echo "********* Finally leave virtual environment..."
 deactivate

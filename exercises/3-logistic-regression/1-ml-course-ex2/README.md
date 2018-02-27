@@ -14,7 +14,7 @@ In the original exercise we implemented a simple logistic regression model to pr
 
 As in the previous ML Coursera course exercise I plot the data in the beginning of the program to visualize the students who passed admittance (blue crosses) vs. those who didn't pass (red circles) regarding how they did in exam1 and exam2. This was once again an interesting exercise using numpy to create the boolean arrays regarding the admittance value (0 or 1) and then to create two sets of arrays exam1 and exam2 using the boolean arrays as filters. 
 
-![ex2 plot](images/ex2a-university-admittance-plot-python.png "ex2 plot")
+![ex2 plot](images/ex2a_university_admittance_plot_python.png "ex2 plot")
 
 You can create the graphics running the program as:
 
@@ -32,7 +32,7 @@ I did the exercise pretty much the same way as the original exercise, except I i
 
 ### Analysis
 
-#### Plain Cost Function
+#### Initial Costs - Plain Cost Function Vs Sigmoid Cross Entropy with Logits
 
 Both methods gave exactly the same results and the results were identical related to the origincal Octave exercise:
 
@@ -51,6 +51,38 @@ Both methods gave exactly the same results and the results were identical relate
 ```
 The initial costs are the same, so we are happy.
 
-Let's next analyze the training part of the exercise.
+#### Training the Model
+
+I had some difficulties in this part. I first started using [GradientDescentOptimizer](https://www.tensorflow.org/api_docs/python/tf/train/GradientDescentOptimizer) as with previous Linear Regression (ex1) exercise. I tried various parameters but I just couldn't make the model to converge using this optimizer (probably because it doesn't fit in this kind of logistic regression or I just didn't know how to tune it). Below you can see one of the convergances when using GradientDescentOptimizer with iterations=10.000 and alpha=0.001.
+
+![Convergance using GradientDescent optimizer](images/ex2a_J_convergance_GradientDescentOptimizer_iter_10000_alpha_0.001.png "Convergance using GradientDescent optimizer").
+
+
+I googled other choices and found out that people often use another optimizer, [AdamOptimizer](https://www.tensorflow.org/api_docs/python/tf/train/AdamOptimizer) with Logistic regression because AdamOptimizer uses "moving averages of the parameters". Using AdamOptimizer with parameters: iterations=10.000 and alpha=0.01 I finally got the cost function to converge to the same value as in the original Octave exercise ex2:
+
+![Convergance using Adam optimizer](images/ex2a_J_convergance_AdamOptimizer_iter_10000_alpha_0.01.png "Convergance using Adam optimizer").
+
+If you have done the original Octave Machine Learning exercise you remember that in that exercise ex2 we didn't train the model manually (as in ex1) but we used Octave library function [fminunc](https://www.gnu.org/software/octave/doc/v4.0.0/Minimizers.html). We passed MaxIter=400 as optimization parameter to fminunc. As you can see in the Adam optimizer convergance graph the cost function is not even near to settle down to final converged value when iterations=400 (but starts to settle down in some value iterations=5000). I let the training to run 10.000 iterations and finally I got the same values as in the original Octave ex2 exercise:
+
+```bash
+2018-02-27 20:36:06,516 - TF - DEBUG - Comparing cost with the original cost of the Coursera exercise after 10000 iterations:
+2018-02-27 20:36:06,516 - TF - DEBUG - J_value: 0.203498, original cost found by fminunc: 0.203498, delta: -0.000000 (-0.0001%)
+2018-02-27 20:36:06,518 - TF - INFO - Final trained weights: -25.1447 (original: -25.1613), 0.2061 (original: 0.2062), 0.2013 (original: 0.2015)
+2018-02-27 20:36:06,521 - TF - INFO - Comparing to original ex2a predictions using values: exam1 = 45.0 and exam2 = 85.0
+2018-02-27 20:36:06,521 - TF - INFO - Our prediction: 0.77617 (original: 0.77629), delta: -0.00012 (-0.01593%)
+```
+
+So, I finally managed to create the similar model using TensorFlow as we created earlier using plain matrix calculations and fminunc with Octave in Machine learning Coursera course.
+
+
+And finally I drew the data values of exam1 and exam2 with the decision boundary using green color as given by the trained model:
+
+
+![Decision boundary](images/ex2a_Decision-boundary.png "Decision boundary").
+
+So, if we use this model to predict the admission of the candidates by their exam1 and exam2 values the decision boundary tells that value pairs (exam1,exam2) above the green line will be admitted and other pairs will not be admitted.
+
+
+
 
 
