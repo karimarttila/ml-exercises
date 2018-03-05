@@ -105,7 +105,23 @@ This exercise is interesting since as one can see from the graphics there obviou
 
 ### Implementation
 
-TODO
+Because a straight line would not model the given test results, in the original Coursera exercise ex2b we had to make so called feature mapping. Feature mapping is a phase of machine learning data preparation when you map your original data variables to new synthetic data variables which will provide non-linear model, e.g. (x1, x2) => (x1, x2, X1^2, X2^2, X1*X2...). In the original Coursera exercise ex2b we mapped (x1, x2) to 27 new variables + 1 bias, altogether 28 variables: (1, x1, x2, x1^2, x1*x2, x2^2, x1^3, x1^2*x2, ..., x1*x2^5, x2^6). Well, let's print all 28 variables:
+
+```python
+degree = 6
+variables = "1, "
+for i in range(1, degree+1):
+    for j in range (0, i+1):
+        buf = "(x1^" + str(i-j) + ") * (x2^" + str(j) + "), "
+        variables = variables + buf
+print(variables)
+```
+
+(removed the last comma manually) =>
+
+```bash
+1, (x1^1) * (x2^0), (x1^0) * (x2^1), (x1^2) * (x2^0), (x1^1) * (x2^1), (x1^0) * (x2^2), (x1^3) * (x2^0), (x1^2) * (x2^1), (x1^1) * (x2^2), (x1^0) * (x2^3), (x1^4) * (x2^0), (x1^3) * (x2^1), (x1^2) * (x2^2), (x1^1) * (x2^3), (x1^0) * (x2^4), (x1^5) * (x2^0), (x1^4) * (x2^1), (x1^3) * (x2^2), (x1^2) * (x2^3), (x1^1) * (x2^4), (x1^0) * (x2^5), (x1^6) * (x2^0), (x1^5) * (x2^1), (x1^4) * (x2^2), (x1^3) * (x2^3), (x1^2) * (x2^4), (x1^1) * (x2^5), (x1^0) * (x2^6)
+```
 
 
 ### Analysis
