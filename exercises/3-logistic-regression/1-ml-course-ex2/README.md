@@ -14,7 +14,7 @@ In the original exercise we implemented a simple logistic regression model to pr
 
 As in the previous ML Coursera course exercise I plot the data in the beginning of the program to visualize the students who passed admittance (blue crosses) vs. those who didn't pass (red circles) regarding how they did in exam1 and exam2. This was once again an interesting exercise using numpy to create the boolean arrays regarding the admittance value (0 or 1) and then to create two sets of arrays exam1 and exam2 using the boolean arrays as filters. 
 
-![ex2 plot](images/ex2a_university_admittance_plot_python.png "ex2 plot")
+![ex2a plot](images/ex2a_university_admittance_plot_python.png "ex2a plot")
 
 You can create the graphics running the program as:
 
@@ -83,6 +83,31 @@ And finally I drew the data values of exam1 and exam2 with the decision boundary
 So, if we use this model to predict the admission of the candidates by their exam1 and exam2 values the decision boundary tells that value pairs (exam1,exam2) above the green line will be admitted and other pairs will not be admitted.
 
 
+## Exercise 2b
+
+### Introduction
+
+In the original exercise we implemented a logistic regression model to predict whether a microchip would pass quality assurance based on two tests, test1 and test2. 
+
+Let's first plot the data using the matplotlib library that we have been learning while doing these machine learning exercises.
+
+![ex2b plot](images/ex2b_microchip_qa_results_plot_python.png "ex2b plot")
+
+You can create the graphics running the program as:
+
+```bash
+./run-ex2b.sh data/ex2b-microchip-test-results.csv ml_course_ex2b.ini true
+```
+
+This exercise is interesting since as one can see from the graphics there obviously is no linear decision boundary. To pass the quality assurance the microchip had to get pretty consistent near zero results in both tests 1 and 2. So we can guess that the decision boundary has to be something that resembles more a circle or an ellipse than a line as in exercise ex2a.
 
 
 
+### Implementation
+
+TODO
+
+
+### Analysis
+
+TODO

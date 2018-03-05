@@ -116,7 +116,7 @@ class UniversityAdmissionLogisticRegression:
 
     def run_logistic_regression_plain_initial_cost(self, data, ml_config):
         """
-        Logistic regression ex2 exercise, initial cost part.
+        Logistic regression ex2a exercise, initial cost part.
         NOTE: In the original ML Coursera course the data was NOT normalized,
         so we don't normalize it in this exercise either.
         Using plain cost formula as we did in the original exercise using Octave.
@@ -149,7 +149,7 @@ class UniversityAdmissionLogisticRegression:
 
     def run_logistic_regression_sigmoid_cross_entropy_initial_cost(self, data, ml_config):
         """
-        Logistic regression ex2 exercise, initial cost part.
+        Logistic regression ex2a exercise, initial cost part.
         NOTE: In the original ML Coursera course the data was NOT normalized,
         so we don't normalize it in this exercise either.
         Using sigmoid with cross entropy to compare to plain cost function method.
@@ -187,7 +187,7 @@ class UniversityAdmissionLogisticRegression:
 
     def run_logistic_regression_plain_training_cost(self, data, ml_config):
         """
-        Logistic regression ex2 exercise, training part.
+        Logistic regression ex2a exercise, training part.
         NOTE: In the original ML Coursera course the data was NOT normalized,
         so we don't normalize it in this exercise either.
         Using plain cost formula as we did in the original exercise using Octave.
