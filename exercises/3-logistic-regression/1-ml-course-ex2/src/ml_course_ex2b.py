@@ -79,6 +79,39 @@ class MicrochipLogisticRegression:
         return
 
 
+    def create_X_train(self, data):
+        """ Create X_train with 27 new synthesized polynomial features:
+        (x1^1) * (x2^0), (x1^0) * (x2^1), (x1^2) * (x2^0),...(x1^1) * (x2^5), (x1^0) * (x2^6)."""
+        self.logger.debug("ENTER create_X_train")
+        (test1, test2, accepted) = data
+        test1_vec = np.asarray(test1)
+        test2_vec = np.asarray(test2)
+        m = test1_vec.shape[0] # m samples
+        ones = np.ones(m)
+        degree = 6 # as in original Coursera mapFeature.m function
+        ret = ones
+        for i in range(1, degree+1):
+            for j in range (0, i+1):
+                new_column = (test1_vec**(i-j)) * (test2_vec**j)
+                ret = np.c_[ret, new_column]
+        self.logger.debug("EXIT create_X_train")
+        return ret
+
+
+    def get_variables(self, data):
+        self.logger.debug("ENTER get_variables")
+        (test1, test2, accepted) = data
+        X_train_bias = self.create_X_train(data)
+        y_train_raw = np.asanyarray(accepted)
+        y_train = y_train_raw.reshape((y_train_raw.shape[0], 1)) # Convert to (m,1)
+        m = X_train_bias.shape[0]  # m samples
+        n = X_train_bias.shape[1]  # n features (28: bias + 27 synthesized features)
+        X = tf.placeholder(tf.float32, [None, n])
+        y = tf.placeholder(tf.float32, [None, 1])
+        W = tf.Variable(tf.zeros([n,1]), name="weights")
+        return (X_train_bias, y_train, X, y, W, n, m)
+
+
     def run_logistic_regression(self, data, ml_config):
         """
         Logistic regression ex2b exercise.
@@ -86,6 +119,9 @@ class MicrochipLogisticRegression:
         so we don't normalize it in this exercise either.
         """
         self.logger.debug("ENTER run_logistic_regression")
+        (X_train_bias, y_train, X, y, W, n, m) = self.get_variables(data)
+        # Now we should have new 28 polynomial features in X_train_bias.
+        # TODO: Compare with Octave X that the values are the same and continue here.
 
 
     def initialize(self, datafile):
