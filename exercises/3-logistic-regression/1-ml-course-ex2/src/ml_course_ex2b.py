@@ -20,6 +20,11 @@ import my_logger
 class MicrochipLogisticRegression:
     """
     Logistic regression class.
+    NOTE: You can import the class in Python REPL like (e.g. PyCharm Python Console):
+        from src.ml_course_ex2b import MicrochipLogisticRegression
+        model = MicrochipLogisticRegression('ml_course_ex2b.ini', False)
+        data = model.read_csv_file('data/ex2b-microchip-test-results.csv')
+        ...
     """
     config_file = None
     logger = None
@@ -120,6 +125,7 @@ class MicrochipLogisticRegression:
         """
         self.logger.debug("ENTER run_logistic_regression")
         (X_train_bias, y_train, X, y, W, n, m) = self.get_variables(data)
+
         # Now we should have new 28 polynomial features in X_train_bias.
         # TODO: Compare with Octave X that the values are the same and continue here.
 

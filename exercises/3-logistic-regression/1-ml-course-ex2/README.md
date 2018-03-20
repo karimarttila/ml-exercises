@@ -125,6 +125,36 @@ print(variables)
 1, (x1^1) * (x2^0), (x1^0) * (x2^1), (x1^2) * (x2^0), (x1^1) * (x2^1), (x1^0) * (x2^2), (x1^3) * (x2^0), (x1^2) * (x2^1), (x1^1) * (x2^2), (x1^0) * (x2^3), (x1^4) * (x2^0), (x1^3) * (x2^1), (x1^2) * (x2^2), (x1^1) * (x2^3), (x1^0) * (x2^4), (x1^5) * (x2^0), (x1^4) * (x2^1), (x1^3) * (x2^2), (x1^2) * (x2^3), (x1^1) * (x2^4), (x1^0) * (x2^5), (x1^6) * (x2^0), (x1^5) * (x2^1), (x1^4) * (x2^2), (x1^3) * (x2^3), (x1^2) * (x2^4), (x1^1) * (x2^5), (x1^0) * (x2^6)
 ```
 
+Verifying that we have done the new synthetic features correctly: compare our new features to the 28 features done in the original Coursera exercise using Octave.
+
+Write the 28 synthetic features in matrix X to file:
+```octave
+dlmwrite ("octave_X.csv", X, "delimiter", "\t", "newline", "\n")
+```
+
+In PyCharm Python Console REPL first get the data:
+
+```python
+from src.ml_course_ex2b import MicrochipLogisticRegression
+model = MicrochipLogisticRegression('ml_course_ex2b.ini', False)
+data = model.read_csv_file('data/ex2b-microchip-test-results.csv')
+vars = model.get_variables(data)
+(X_train_bias, y_train, X, y, W, n, m) = vars
+```
+
+... then write the new 28 features to file:
+
+```python
+with open("python_X.csv", "a") as myfile:
+     for i in range(0, X_train_bias.shape[0]):
+         X_train_bias[i].tofile(myfile, sep="\t")
+         myfile.write("\n")
+```
+
+Then using e.g. [Meld](http://meldmerge.org/) compare the files octave_X.csv and python_X.csv => you can verify that the feature values are practically the same (some small precision variations).
+
+
+
 
 ### Analysis
 
