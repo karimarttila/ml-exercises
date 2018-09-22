@@ -153,6 +153,8 @@ with open("python_X.csv", "a") as myfile:
 
 Then using e.g. [Meld](http://meldmerge.org/) compare the files octave_X.csv and python_X.csv => you can verify that the feature values are practically the same (some small precision variations).
 
+BTW. I really miss the Clojure REPL after working with the Python REPL. It would be so great to find an analytics / ML project that would be deployed to AWS and I could use Python and Clojure to implement the project.
+
 
 
 
