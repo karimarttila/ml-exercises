@@ -31,6 +31,7 @@ There are two kinds of exercises in this repository.
 
 This project is hosted in Github in url [ml-exercises](https://github.com/karimarttila/ml-exercises).
 
+
 ## Directories
 
 - data: Various raw and processed material from various open data sources. Processed data will be used as training and test sets. 
